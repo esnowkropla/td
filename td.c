@@ -6,7 +6,7 @@
 #include <sys/stat.h>
 #include "td.h"
 
-/* Returns 256 if deluged isn't running and god knows what if it does  */
+/* Returns 256 if deluged isn't running and god knows what if it is  */
 int rc() {
 	FILE* fd = popen("ps -e | grep deluged", "r");
 	return pclose(fd);
