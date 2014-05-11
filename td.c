@@ -6,11 +6,9 @@
 #include <sys/stat.h>
 #include "td.h"
 
-/* Returns 0 if deluged is running and 256 if it isn't */
+/* Returns 256 if deluged isn't running and god knows what if it does  */
 int rc() {
 	FILE* fd = popen("ps -e | grep deluged", "r");
-	char c;
-	while ( (c = (char)fgetc(fd)) != EOF);
 	return pclose(fd);
 }
 
@@ -43,7 +41,7 @@ int main() {
 	close(STDERR_FILENO);
 
 	while(1) {
-		if (rc() != 0) { /* thus deluged is NOT running */
+		if (rc() == 256) { /* thus deluged is NOT running */
 			FILE* fd = popen("deluged","r");
 			pclose(fd);
 		}
